@@ -18,17 +18,8 @@ public class SecurityConfig {
 
         http
             .csrf(csrf -> csrf.disable())
-
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                    "/",
-                    "/api/auth/**",
-                    "/api/files/**",
-                    "/api/folders/**",
-                    "/api/shares/**"
-                ).permitAll()
                 .anyRequest().permitAll()
             );
 
@@ -41,11 +32,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOriginPatterns(
-            Arrays.asList(
-                "http://localhost:5173",
-                "http://localhost:5174",
-                "https://*.vercel.app"
-            )
+            Arrays.asList("*")
         );
 
         configuration.setAllowedMethods(
@@ -65,7 +52,7 @@ public class SecurityConfig {
         configuration.setAllowCredentials(false);
 
         UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
+            new UrlBasedCorsConfigurationSource();
 
         source.registerCorsConfiguration("/**", configuration);
 
